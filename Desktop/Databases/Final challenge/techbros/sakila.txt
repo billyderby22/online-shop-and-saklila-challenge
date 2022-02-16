@@ -1,0 +1,29 @@
+Sakila Challenge
+
+1.SELECT * FROM actor
+2.SELECT last_name FROM actor WHERE first_name = 'John';
+3.SELECT * FROM actor WHERE last_name = 'neeson';
+4.SELECT * FROM actor WHERE mod(actor_id, 10)=0; 
+5.SELECT description FROM film WHERE film_id=100; 
+6.SELECT * FROM film WHERE rating = 'R'; 
+7.SELECT * FROM film WHERE rating != 'R'; 
+8.SELECT title, length from film ORDER BY length ASC LIMIT 10;
+9.SELECT title, length from film ORDER BY length DESC;
+10.SELECT * FROM film where special_features ='deleted Scenes';
+11.SELECT last_name FROM actor  GROUP BY last_name HAVING COUNT(DISTINCT last_name) ORDER BY last_name DESC;
+12.SELECT last_name FROM actor GROUP BY last_name HAVING COUNT(*) > 1 ORDER BY COUNT(last_name) DESC;
+13.SELECT first_name, last_name from actor
+Inner JOIN film_actor ON actor.actor_id = film_actor.actor_id
+GROUP BY actor.actor_id
+ORDER BY count(film_actor.actor_id) DESC LIMIT 1;
+14.
+15. SELECT AVG (length) from film;
+16. SELECT category.name, avg(length) FROM film
+JOIN film_category using (film_id)
+JOIN category using (category_id)
+GROUP BY category.name
+ORDER BY AVG(length) DESC;
+17. SELECT*FROM film where description LIKE '%robot%';
+18. SELECT COUNT(title) AS No_of_film_released from film WHERE release_year = 2010;
+19. 
+

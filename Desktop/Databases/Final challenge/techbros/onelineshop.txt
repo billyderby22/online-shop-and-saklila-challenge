@@ -1,0 +1,75 @@
+CREATE DATABASE online_shop;
+USE online_shop;
+CREATE TABLE users(
+user_id INT NOT NULL AUTO_INCREMENT,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+PRIMARY KEY (user_id)
+);
+CREATE TABLE orders(
+order_id INT NOT NULL AUTO_INCREMENT,
+fk_user_id INT NOT NULL,
+order_date DATE NOT NULL,
+PRIMARY KEY (order_id),
+foreign key (fk_user_id) references users(user_id)
+);
+CREATE TABLE products(
+product_id INT NOT NULL auto_increment,
+product_name VARCHAR(50) NOT NULL,
+product_description VARCHAR(50) NOT NULL,
+PRIMARY KEY (product_id)
+);
+CREATE TABLE orderline(
+orderline_id INT NOT NULL AUTO_INCREMENT,
+fk_order_id INT NOT NULL,
+fk_product_id INT NOT NULL,
+PRIMARY KEY (orderline_id),
+FOREIGN KEY (fk_order_id) references orders(order_id),
+foreign key (fk_product_id) references products(product_id)
+);
+DROP TABLE orderline;
+DROP TABLE products;
+CREATE TABLE products(
+product_id INT NOT NULL auto_increment,
+product_name VARCHAR(50) NOT NULL,
+product_description VARCHAR(50) NOT NULL,
+unit_price DEC(6,2)NOT NULL,
+PRIMARY KEY (product_id)
+);
+SHOW TABLES;
+DESCRIBE users;
+INSERT INTO users (first_name, last_name)
+VALUES ('billy', 'derby'), ('max', 'delmonte'), ('barney', 'walsh'), ('jack','kane'), ('rob','seaman');
+INSERT INTO products (product_name, product_description, unit_price)
+VALUES ('ps5', 'this is a ps5', 399.99), ('xbox360', 'this is a xbox360', 99.99), ('nintendo switch', 'this is a nintendo switch', 299.99), ('ps4', 'this is a ps4', 199.99), ('ipad', 'this is an ipad', 299.99);
+SELECT * FROM products;
+DESCRIBE orders;
+SELECT * FROM orders;
+INSERT INTO orders (fk_user_id, order_date)
+VALUES (1, '2021-12-11'), (2, '2020-09-18'), (3, '2021-03-12'), (4, '2021-07-23'), (5, '2020-11-22');
+DESCRIBE orderline;
+INSERT INTO orderline (fk_order_id, fk_product_id)
+VALUES (1,2), (2,3), (3,1), (4,4), (5,5);
+
+
+SELECT COUNT(product_id) FROM products;
+SELECT * FROM users usr
+JOIN orders ord
+ON usr.user_id = ord.fk_user_id;
+SELECT * FROM products;
+SELECT * FROM users;
+SELECT * FROM orders;
+SELECT * FROM orderline;
+SELECT MAX(unit_price) FROM products;
+SELECT MIN(unit_price) FROM products;
+SELECT * FROM products pro
+JOIN orderline odl
+ON pro.product_id = odl.fk_product_id;
+DESCRIBE orderline;
+
+SET sql_safe_updates=0;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+DELETE FROM products where product_name = 'ps5';
+DELETE FROM users WHERE first_name = 'jack';
